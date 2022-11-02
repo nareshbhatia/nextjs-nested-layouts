@@ -11,6 +11,11 @@ interface NavLinkProps {
 
 export function NavLink({ href, children }: NavLinkProps) {
   let pathname = usePathname();
+  // TODO: Remove this hack by making useSelectedLayoutSegment() work
+  // Truncate movie id from pathname if it exists for match below to succeed
+  if (pathname.startsWith('/movies')) {
+    pathname = '/movies';
+  }
   let active = href === pathname;
   return (
     <Link className={active ? 'underline' : ''} href={href}>

@@ -1,5 +1,7 @@
 # Next.js 13 Nested Layouts
 
+![Screenshot](assets/screenshot.png)
+
 This is a slightly enhanced version of the
 [Nested Layouts demo](https://www.youtube.com/watch?v=6mQ3M1CUGnk) built in
 Next.js Conf 2022.
