@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { NextPage } from 'next';
 
 async function getMovie(id: string) {
   const API_URL = process.env.API_URL;
