@@ -1,4 +1,4 @@
-import { NavLink } from './nav-link';
+import { NavBar } from './NavBar';
 import './tailwind.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -19,10 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html className={inter.className} lang="en">
       <body className="bg-gray-900 text-gray-100 antialiased">
         <header className="border-b p-4">
-          <nav className="space-x-4">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/movies">Movies</NavLink>
-          </nav>
+          <NavBar />
         </header>
         <div className="p-4">{children}</div>
       </body>

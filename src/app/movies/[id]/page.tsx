@@ -11,7 +11,7 @@ interface Movie {
 
 function useMovie(movieId: string) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const failMessage = 'Failed to get movies';
+  const failMessage = 'Failed to get movie';
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
@@ -49,6 +49,7 @@ function useMovie(movieId: string) {
 // TODO: Replace props type from `any` to more specific
 export default function Page({ params }: any) {
   const { isLoading, isError, error, movie } = useMovie(params.id);
+
   return movie !== undefined ? (
     <div>
       <p className="text-xl">{movie.name}</p>
