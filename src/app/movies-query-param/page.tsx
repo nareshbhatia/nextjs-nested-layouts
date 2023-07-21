@@ -89,7 +89,15 @@ function useMovie(movieId: string | null) {
   return { isLoading, isError, error, movie };
 }
 
-export default function Page() {
+export default function MoviesQueryParamPage() {
+  console.log('MoviesQueryParamPage render');
+  React.useEffect(() => {
+    console.log('MoviesQueryParamPage mounted');
+    return () => {
+      console.log('MoviesQueryParamPage unmounted');
+    };
+  }, []);
+
   const searchParams = useSearchParams();
   const movieId = searchParams.get('id');
   const { movies } = useMovies();

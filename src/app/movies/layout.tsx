@@ -12,7 +12,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function MoviesLayout({ children }: LayoutProps) {
   const movies = React.use(getMovies());
   return (
     <div className="flex">
