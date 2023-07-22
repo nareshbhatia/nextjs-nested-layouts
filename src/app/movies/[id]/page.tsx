@@ -46,8 +46,11 @@ function useMovie(movieId: string) {
   return { isLoading, isError, error, movie };
 }
 
-// TODO: Replace props type from `any` to more specific
-export default function Page({ params }: any) {
+export interface MoviePageProps {
+  params: { id: string };
+}
+
+export default function MoviePage({ params }: MoviePageProps) {
   const { isLoading, isError, error, movie } = useMovie(params.id);
 
   return movie !== undefined ? (
