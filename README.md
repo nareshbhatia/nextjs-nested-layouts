@@ -2,6 +2,8 @@
 
 ![Screenshot](assets/screenshot.png)
 
+Live demo: https://nextjs-nested-layouts-ruby.vercel.app/
+
 This is a slightly modified version of the
 [Nested Layouts demo](https://www.youtube.com/watch?v=6mQ3M1CUGnk) built in
 Next.js Conf 2022.
