@@ -1,4 +1,4 @@
-# Next.js 13 Nested Layouts
+# Next.js Nested Layouts Using App Router
 
 ![Screenshot](assets/screenshot.png)
 
@@ -10,15 +10,13 @@ Here are the changes:
 
 1. Kept the main `movies` route as a server rendered component (RSC), but
    changed the nested `movies[id]` route to be a client component.
-2. Changed the next configuration to do a
+2. Added a workaround for
+   [issue #48022](https://github.com/vercel/next.js/issues/48022) whereby
+   dynamic routes are not supported when next.js is configured for
    [static export](https://nextjs.org/docs/app/building-your-application/deploying/static-exports).
-   This forces the dynamic route to be rendered on the client-side (CSR). This
-   works perfectly well in the dev build, but results in a 404 on the prod
-   build. This issue is being discussed in the next.js repo under
-   [issue #48022](https://github.com/vercel/next.js/issues/48022).
-3. Added a workaround for the above issue by adding a static route
-   `movies-query-param`. This route uses a query parameter to fetch movies thus
-   avoiding dynamic routes completely.
+   While this app is not configured for static export, I added a static route
+   `movies-query-param` to show how something equivalent can be supported using
+   query parameters, avoiding dynamic routes completely.
 
 ## Development Build
 
