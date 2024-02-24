@@ -104,8 +104,8 @@ export default function MoviesQueryParamPage() {
   const { movie } = useMovie(movieId);
 
   return (
-    <div className="flex">
-      <ul className="pr-10 text-sm flex-none">
+    <div className="flex min-h-0 flex-1 p-4">
+      <ul className="pr-10 text-sm flex-none overflow-auto">
         {movies.map((movie: any) => (
           <li key={movie.name}>
             <Link href={`/movies-query-param?id=${movie.id}`}>
@@ -115,12 +115,12 @@ export default function MoviesQueryParamPage() {
         ))}
       </ul>
 
-      {movieId === null && <div>Select a movie</div>}
+      {movieId === null && <div className="px-2">Select a movie</div>}
 
       {movieId !== null && movie === undefined && <div>Loading...</div>}
 
       {movieId !== null && movie !== undefined && (
-        <div>
+        <div className="px-2">
           <p className="text-xl">{movie.name}</p>
           <p>{movie.year}</p>
           <p>Rating: {movie.rating}</p>

@@ -14,16 +14,17 @@ interface LayoutProps {
 
 export default function MoviesLayout({ children }: LayoutProps) {
   const movies = React.use(getMovies());
+
   return (
-    <div className="flex">
-      <ul className="pr-10 text-sm flex-none">
+    <div className="flex min-h-0 flex-1 p-4">
+      <ul className="pr-10 text-sm flex-none overflow-auto">
         {movies.map((movie: any) => (
           <li key={movie.name}>
             <Link href={`/movies/${movie.id}`}>{movie.name}</Link>
           </li>
         ))}
       </ul>
-      <div>{children}</div>
+      <div className="px-2">{children}</div>
     </div>
   );
 }

@@ -18,10 +18,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className={inter.className} lang="en">
       <body className="bg-gray-900 text-gray-100 antialiased">
-        <header className="border-b p-4">
-          <NavBar />
-        </header>
-        <div className="p-4">{children}</div>
+        <div className="flex h-screen flex-col">
+          <header className="border-b p-4">
+            <NavBar />
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );

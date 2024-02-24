@@ -1,3 +1,3 @@
 export default function MoviesPage() {
-  return <p>Select a movie</p>;
+  return <p className="px-2">Select a movie</p>;
 }
