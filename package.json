@@ -3,26 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "clean": "rimraf .next next-env.d.ts node_modules",
+    "dev": "next dev",
+    "format": "prettier --write \"**/README.md\" \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "lint": "next lint",
-    "format": "prettier --write \"**/README.md\" \"src/**/*.{js,jsx,ts,tsx,json}\""
+    "start": "next start"
   },
   "dependencies": {
-    "next": "14.1.0",
+    "next": "14.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "20.11.20",
-    "@types/react": "18.2.58",
+    "@types/node": "20.11.24",
+    "@types/react": "18.2.61",
     "@types/react-dom": "18.2.19",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.18",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "14.1.1",
     "postcss": "8.4.35",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^3.4.1",
     "typescript": "5.3.3"
   }

@@ -1,15 +1,7 @@
-'use client';
-
 import * as React from 'react';
+import { Movie } from '@/models';
 
-interface Movie {
-  id: string;
-  name: string;
-  year: number;
-  rating: number;
-}
-
-function useMovie(movieId: string) {
+export function useMovie(movieId: string | null) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const failMessage = 'Failed to get movie';
 
@@ -20,6 +12,10 @@ function useMovie(movieId: string) {
 
   React.useEffect(() => {
     const fetchMovie = async () => {
+      if (movieId === null) {
+        return;
+      }
+
       try {
         setIsLoading(true);
         const response = await fetch(`${apiUrl}/top-10-movies/${movieId}`);
@@ -44,22 +40,4 @@ function useMovie(movieId: string) {
     fetchMovie();
   }, [apiUrl, movieId]);
   return { isLoading, isError, error, movie };
-}
-
-export interface MoviePageProps {
-  params: { id: string };
-}
-
-export default function MoviePage({ params }: MoviePageProps) {
-  const { isLoading, isError, error, movie } = useMovie(params.id);
-
-  return movie !== undefined ? (
-    <div>
-      <p className="text-xl">{movie.name}</p>
-      <p>{movie.year}</p>
-      <p>Rating: {movie.rating}</p>
-    </div>
-  ) : (
-    <div>Loading...</div>
-  );
 }

@@ -12,7 +12,9 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function MoviesLayout({ children }: LayoutProps) {
+export default function MoviesServerComponentsLayout({
+  children,
+}: LayoutProps) {
   const movies = React.use(getMovies());
 
   return (
@@ -20,7 +22,9 @@ export default function MoviesLayout({ children }: LayoutProps) {
       <ul className="pr-10 text-sm flex-none overflow-auto">
         {movies.map((movie: any) => (
           <li key={movie.name}>
-            <Link href={`/movies/${movie.id}`}>{movie.name}</Link>
+            <Link href={`/movies-server-components/${movie.id}`}>
+              {movie.name}
+            </Link>
           </li>
         ))}
       </ul>
