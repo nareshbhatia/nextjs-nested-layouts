@@ -5,15 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function MoviesQueryParamPage() {
-  console.log('MoviesQueryParamPage render');
-  React.useEffect(() => {
-    console.log('MoviesQueryParamPage mounted');
-    return () => {
-      console.log('MoviesQueryParamPage unmounted');
-    };
-  }, []);
-
+function MoviesQueryParamView() {
   const searchParams = useSearchParams();
   const movieId = searchParams.get('id');
   const { movies } = useMovies();
@@ -46,5 +38,24 @@ export default function MoviesQueryParamPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function MoviesQueryParamPage() {
+  console.log('MoviesQueryParamPage render');
+  React.useEffect(() => {
+    console.log('MoviesQueryParamPage mounted');
+    return () => {
+      console.log('MoviesQueryParamPage unmounted');
+    };
+  }, []);
+
+  // This is to avoid following build error:
+  // useSearchParams() should be wrapped in a suspense boundary at page "/movies-query-param".
+  // Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+  return (
+    <React.Suspense>
+      <MoviesQueryParamView />
+    </React.Suspense>
   );
 }
