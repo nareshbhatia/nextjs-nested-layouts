@@ -18,6 +18,10 @@ const links = [
     title: 'Client Components',
   },
   {
+    route: '/fake-child',
+    title: 'Fake Child',
+  },
+  {
     route: '/query-params',
     title: 'Query Params',
   },
@@ -36,6 +40,7 @@ export function NavBar() {
             className={isSelected ? 'underline' : ''}
             href={link.route}
             key={link.route}
+            prefetch={false}
           >
             {link.title}
           </Link>

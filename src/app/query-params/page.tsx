@@ -17,7 +17,7 @@ async function fetchMovies(queryParams: QueryParams): Promise<MoviePagination> {
 
 const baseStyles = 'container relative mx-auto max-w-screen-xl px-8 py-4';
 
-function MoviesQueryParamBase() {
+function QueryParamBase() {
   // extract movieId from a query params like '/query-params?id=1234'
   const searchParams = useSearchParams();
   const selectedMovieId = searchParams.get('id');
@@ -56,6 +56,7 @@ function MoviesQueryParamBase() {
             <Link
               className={movie.id === selectedMovieId ? 'underline' : ''}
               href={`/query-params?id=${movie.id}`}
+              prefetch={false}
             >
               {movie.name}
             </Link>
@@ -73,13 +74,13 @@ function MoviesQueryParamBase() {
   );
 }
 
-export default function MoviesQueryParamPage() {
+export default function QueryParamPage() {
   // This is to avoid the following error when running `npm run build`:
   // useSearchParams() should be wrapped in a suspense boundary at page "/query-params".
   // Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
   return (
     <React.Suspense>
-      <MoviesQueryParamBase />
+      <QueryParamBase />
     </React.Suspense>
   );
 }

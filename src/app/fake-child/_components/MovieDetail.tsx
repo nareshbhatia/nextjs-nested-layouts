@@ -1,26 +1,20 @@
-'use client';
-
 import * as React from 'react';
 import type { Movie } from '@/models';
 import { useQuery } from '@tanstack/react-query';
 
 async function fetchMovie(id: String): Promise<Movie> {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  // This client-side query does NOT require `cache: 'no-store'` to disable the server Data Cache.
-  // Also it does NOT require to disable the client-side Router Cache because that cache is only for Server Components.
   const resMovie = await fetch(`${API_URL}/movies/${id}`);
   return resMovie.json();
 }
 
 const baseStyles = 'px-8 py-4';
 
-export interface MoviePageProps {
-  params: { id: string };
+interface MovieDetailProps {
+  movieId: string;
 }
 
-export default function MoviePage({ params }: MoviePageProps) {
-  const { id: movieId } = params;
-
+export function MovieDetail({ movieId }: MovieDetailProps) {
   const {
     data: movie,
     error,

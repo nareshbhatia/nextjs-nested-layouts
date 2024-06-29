@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import type { MoviePagination, QueryParams } from '@/models';
 import { queryParamsToSearchParams, SortParam } from '@/models';
+import { MovieDetail } from './_components';
+import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 async function fetchMovies(queryParams: QueryParams): Promise<MoviePagination> {
@@ -16,12 +17,8 @@ async function fetchMovies(queryParams: QueryParams): Promise<MoviePagination> {
 
 const baseStyles = 'container relative mx-auto max-w-screen-xl px-8 py-4';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export default function ClientComponentsLayout({ children }: LayoutProps) {
-  // extract movieId from a pathname like '/client-components/[id]'
+export default function FakeChildLayout() {
+  // extract movieId from a pathname like '/fake-child/[id]'
   const { id: selectedMovieId } = useParams<{ id: string }>();
 
   const top10QueryParams: QueryParams = {
@@ -57,7 +54,7 @@ export default function ClientComponentsLayout({ children }: LayoutProps) {
           <li key={movie.name}>
             <Link
               className={movie.id === selectedMovieId ? 'underline' : ''}
-              href={`/client-components/${movie.id}`}
+              href={`/fake-child/${movie.id}`}
               prefetch={false}
             >
               {movie.name}
@@ -65,7 +62,13 @@ export default function ClientComponentsLayout({ children }: LayoutProps) {
           </li>
         ))}
       </ul>
-      <div className="px-2">{children}</div>
+      <div className="px-2">
+        {selectedMovieId === undefined ? (
+          'Select a movie'
+        ) : (
+          <MovieDetail movieId={selectedMovieId} />
+        )}
+      </div>
     </div>
   );
 }
