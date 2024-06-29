@@ -10,16 +10,16 @@ const links = [
     title: 'Home',
   },
   {
-    route: '/movies-server-components',
-    title: 'Movies (server components)',
+    route: '/server-components',
+    title: 'Server Components',
   },
   {
-    route: '/movies-client-components',
-    title: 'Movies (client components)',
+    route: '/client-components',
+    title: 'Client Components',
   },
   {
-    route: '/movies-query-param',
-    title: 'Movies (query parameters)',
+    route: '/query-params',
+    title: 'Query Params',
   },
 ];
 

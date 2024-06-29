@@ -1,9 +1,17 @@
+import { AppProvider } from '@/providers';
 import { NavBar } from '@/components/NavBar';
-import './tailwind.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import './tailwind.css';
 
-const inter = Inter({ subsets: ['latin'] });
+/*
+ * Load the fonts using next/font/google. For details, see
+ * https://nextjs.org/docs/pages/building-your-application/optimizing/fonts#with-tailwind-css
+ */
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Nested Layouts',
@@ -16,14 +24,17 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className={inter.className} lang="en">
-      <body className="bg-gray-900 text-gray-100 antialiased">
-        <div className="flex h-screen flex-col">
-          <header className="border-b p-4">
-            <NavBar />
-          </header>
-          {children}
-        </div>
+    <html className={inter.variable} lang="en" suppressHydrationWarning>
+      <head />
+      <body>
+        <AppProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <header className="border-b p-4">
+              <NavBar />
+            </header>
+            <main className="flex-1">{children}</main>
+          </div>
+        </AppProvider>
       </body>
     </html>
   );
