@@ -17,7 +17,7 @@ async function fetchMovies(queryParams: QueryParams): Promise<MoviePagination> {
 
 const baseStyles = 'container relative mx-auto max-w-screen-xl px-8 py-4';
 
-export default function MoviesQueryParamPage() {
+function MoviesQueryParamBase() {
   // extract movieId from a query params like '/query-params?id=1234'
   const searchParams = useSearchParams();
   const selectedMovieId = searchParams.get('id');
@@ -70,5 +70,16 @@ export default function MoviesQueryParamPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function MoviesQueryParamPage() {
+  // This is to avoid the following error when running `npm run build`:
+  // useSearchParams() should be wrapped in a suspense boundary at page "/query-params".
+  // Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+  return (
+    <React.Suspense>
+      <MoviesQueryParamBase />
+    </React.Suspense>
   );
 }
