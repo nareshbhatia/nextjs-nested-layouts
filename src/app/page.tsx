@@ -1,3 +1,3 @@
 export default function Page() {
-  return <p className="p-4">Hello World</p>;
+  return <p className="py-8">Hello World</p>;
 }

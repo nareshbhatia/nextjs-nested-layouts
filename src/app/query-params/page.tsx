@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { SelectMovieMessage } from '@/components/SelectMovieMessage';
 import type { MoviePagination, QueryParams } from '@/models';
 import { queryParamsToSearchParams, SortParam } from '@/models';
 import { MovieDetail } from './_components';
@@ -49,10 +50,10 @@ function QueryParamBase() {
   }
 
   return (
-    <div className="flex flex-1 min-h-0 p-4">
-      <ul className="pr-10 text-sm flex-none overflow-auto">
+    <div className="flex flex-1 min-h-0 py-8">
+      <ul className="text-sm flex-none overflow-auto">
         {data.movies.map((movie: any) => (
-          <li key={movie.name}>
+          <li className="pb-6" key={movie.name}>
             <Link
               className={movie.id === selectedMovieId ? 'underline' : ''}
               href={`/query-params?id=${movie.id}`}
@@ -63,9 +64,9 @@ function QueryParamBase() {
           </li>
         ))}
       </ul>
-      <div className="px-2">
+      <div className="flex-1 px-6">
         {selectedMovieId === null ? (
-          'Select a movie'
+          <SelectMovieMessage />
         ) : (
           <MovieDetail movieId={selectedMovieId} />
         )}

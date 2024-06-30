@@ -1,5 +1,12 @@
 import * as React from 'react';
 import type { Movie } from '@/models';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 async function fetchMovie(id: String): Promise<Movie | undefined> {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -16,8 +23,6 @@ async function fetchMovie(id: String): Promise<Movie | undefined> {
   return resMovie.json();
 }
 
-const baseStyles = 'px-8 py-4';
-
 export interface MoviePageProps {
   params: { id: string };
 }
@@ -28,16 +33,20 @@ export default function MoviePage({ params }: MoviePageProps) {
   const movie = React.use(fetchMovie(movieId));
 
   if (!movie) {
-    return <div className={baseStyles}>Error: Movie not found</div>;
+    return <div>Error: Movie not found</div>;
   }
 
   const { name, releaseYear, ratingsSummary } = movie;
 
   return (
-    <div className={baseStyles}>
-      <p className="text-xl">{name}</p>
-      <p>{releaseYear}</p>
-      <p>Rating: {ratingsSummary.aggregateRating}</p>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{releaseYear}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Rating: {ratingsSummary.aggregateRating}</p>
+      </CardContent>
+    </Card>
   );
 }

@@ -1,5 +1,5 @@
 import { AppProvider } from '@/providers';
-import { NavBar } from '@/components/NavBar';
+import { AppHeader } from '@/components/AppHeader';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './tailwind.css';
@@ -29,10 +29,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <AppProvider>
           <div className="relative flex min-h-screen flex-col">
-            <header className="border-b p-4">
-              <NavBar />
-            </header>
-            <main className="flex-1">{children}</main>
+            <AppHeader />
+            <main className="flex-1 container max-w-screen-lg">{children}</main>
           </div>
         </AppProvider>
       </body>

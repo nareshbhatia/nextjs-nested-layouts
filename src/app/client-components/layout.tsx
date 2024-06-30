@@ -51,10 +51,10 @@ export default function ClientComponentsLayout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="flex flex-1 min-h-0 p-4">
-      <ul className="pr-10 text-sm flex-none overflow-auto">
+    <div className="flex flex-1 min-h-0 py-8">
+      <ul className="text-sm flex-none overflow-auto">
         {data.movies.map((movie: any) => (
-          <li key={movie.name}>
+          <li className="pb-6" key={movie.name}>
             <Link
               className={movie.id === selectedMovieId ? 'underline' : ''}
               href={`/client-components/${movie.id}`}
@@ -65,7 +65,7 @@ export default function ClientComponentsLayout({ children }: LayoutProps) {
           </li>
         ))}
       </ul>
-      <div className="px-2">{children}</div>
+      <div className="flex-1 px-6">{children}</div>
     </div>
   );
 }

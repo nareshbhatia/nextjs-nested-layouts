@@ -3,6 +3,13 @@
 import * as React from 'react';
 import type { Movie } from '@/models';
 import { useQuery } from '@tanstack/react-query';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 async function fetchMovie(id: String): Promise<Movie> {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -11,8 +18,6 @@ async function fetchMovie(id: String): Promise<Movie> {
   const resMovie = await fetch(`${API_URL}/movies/${id}`);
   return resMovie.json();
 }
-
-const baseStyles = 'px-8 py-4';
 
 export interface MoviePageProps {
   params: { id: string };
@@ -31,24 +36,24 @@ export default function MoviePage({ params }: MoviePageProps) {
   });
 
   if (isLoading) {
-    return <div className={baseStyles}>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error || !movie) {
-    return (
-      <div className={baseStyles}>
-        Error: {error ? error.message : 'Movie not found'}
-      </div>
-    );
+    return <div>Error: {error ? error.message : 'Movie not found'}</div>;
   }
 
   const { name, releaseYear, ratingsSummary } = movie;
 
   return (
-    <div className={baseStyles}>
-      <p className="text-xl">{name}</p>
-      <p>{releaseYear}</p>
-      <p>Rating: {ratingsSummary.aggregateRating}</p>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{releaseYear}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Rating: {ratingsSummary.aggregateRating}</p>
+      </CardContent>
+    </Card>
   );
 }
