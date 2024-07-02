@@ -85,7 +85,7 @@ See the Chrome Dev Tools snapshot below for clarity:
 
 The first call to get an RSC Payload seems completely unnecessary for every
 click. We are wasting 572 ms per click! Since we are rendering the same client
-component repeatedly (just with different data), we should'nt have to download
+component repeatedly (just with different data), we shouldn't have to download
 the RSC payload again and again. I can understand if this Payload is requested
 just the first time a movie is clicked.
 
