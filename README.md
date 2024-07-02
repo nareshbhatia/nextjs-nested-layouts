@@ -74,10 +74,19 @@ Again, this analysis is focused on the Client Components option (option 2).
    see [here](./src/app/client-components/%5Bid%5D/page.tsx#L1).
 
 In spite of this entire page consisting of client components only, the browser
-is making two network calls on each movie click:
+is making two network calls on each movie click. Looking at the calls for the
+2nd click:
 
-1. Call to the Next.js server to get the RSC Payload
-2. Call to the external API to get the movie data
+1. `GET /movies/tt0071562?\_rsc=101fc`: Call to the Next.js server to get the
+   RSC Payload. This is because of a route change from `/movies/tt0468569` to
+   `/movies/tt0071562`. The client wants to render only the route segment that
+   has changed (see
+   [partial rerendering](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)),
+   i.e. the movie detail. Hence it is asking for the RSC Payload for the `[id]`
+   segment from the server (see
+   [code splitting](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#1-code-splitting)).
+2. `GET {{API_URL}}/movies/tt0071562`: Call to the external API to get the movie
+   data
 
 See the Chrome Dev Tools snapshot below for clarity:
 
