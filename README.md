@@ -2,8 +2,8 @@
 
 Live demo: https://nextjs-nested-layouts-ruby.vercel.app/
 
-I created this repo to understand React Server Components and Client Components
-in detail and how Next.js implements them.
+I created this repo to understand and solve a performance issue when using React
+Server Components and Client Components in my specific use case.
 
 ## My Use Case
 
