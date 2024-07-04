@@ -2,8 +2,17 @@
 
 Live demo: https://nextjs-nested-layouts-ruby.vercel.app/
 
-I created this repo to understand and solve a performance issue when using React
-Server Components and Client Components in my specific use case.
+I created this repo to understand a performance issue when using only React
+Client Components on a page (+ App Router). It's a list-detail page. When I
+click on different items in the list, the client hits the Next.js server for an
+RSC Payload on every click. I don't understand why.
+
+I would have assumed that all code for that page should be on the client after
+the first render, and from then on, the client would not have to load anything
+from the server. Can anyone help me understand this behavior and a potential
+workaround?
+
+Please see details below.
 
 ## My Use Case
 
@@ -11,13 +20,12 @@ Server Components and Client Components in my specific use case.
    data caching should be disabled.
 2. Data is obtained from an external service that exposes a REST or GraphQL API.
 3. FCP, TTI are not important (not a marketing or shopping site).
-4. Responsiveness to user interactions is most important.
-5. Specifically, we have a master-detail screen. As the user clicks on items in
-   the master, we want to show the LATEST detail as soon as possible – the
-   application should not feel sluggish.
-6. Application is to be used in the field. Assume a Fast 3G connection at best.
+4. Responsiveness to user interactions is most important - as the user clicks on
+   items in the list, we want to show the LATEST detail as soon as possible –
+   the application should not feel sluggish.
+5. Application is to be used in the field. Assume a Fast 3G connection at best.
 
-Here's a screenshot for the POC – a movie list on the left and the selected
+Here's a screenshot of my POC – a movie list on the left and the selected
 movie's detail on the right. Granted this is not fast changing data, but it will
 do for the POC :smiley:
 
@@ -28,10 +36,10 @@ do for the POC :smiley:
 I have implemented the requirements 4 ways to compare the performance:
 
 1. **Server Components**: The entire page is built using React Server
-   Components. Both master and detail data are fetched on the server.
+   Components. Both list and detail data are fetched on the server.
 2. **Client Components**: The entire page is built using React Client
-   Components. Both master and detail data are fetched on the client. This is
-   the preferred option give the requirements.
+   Components. Both list and detail data are fetched on the client. This is the
+   preferred option give the requirements.
 3. **Fake Child**: A variation of option 2, to improve performance (not
    successful). Here we are faking the nested child component by returning
    `undefined` (see [here](./src/app/fake-child/%5Bid%5D/page.tsx#L6)). This
@@ -46,9 +54,9 @@ Also, to meet the requirements, I have done the following:
    [here](./src/app/server-components/layout.tsx#L17).
 2. Router Cache has been disabled - see [here](./next.config.js#L5-L9).
 
-## Experience the Performance Issue
+## Steps to Reproduce
 
-Given that Client Components is our preferred option (option 2), let's first
+Given that Client Components is my preferred option (option 2), let's first
 demonstrate the issue.
 
 1. Point your browser to the
@@ -92,15 +100,17 @@ See the Chrome Dev Tools snapshot below for clarity:
 
 ![Network Calls](assets/network-calls.png)
 
-The first call to get an RSC Payload seems completely unnecessary for every
-click. We are wasting 572 ms per click! Since we are rendering the same client
-component repeatedly (just with different data), we shouldn't have to download
-the RSC payload again and again. I can understand if this Payload is requested
-just the first time a movie is clicked.
+I can understand if the RSC Payload is requested just the first time a movie is
+clicked. However, for subsequent clicks, we shouldn't have to download the RSC
+payload again because we are rendering the same client component repeatedly
+(just with different data). We are wasting 572 ms per click!
 
-I would love to get a good explanation of this behavior and a workaround if
-possible. All we should see is one call to the API server for each click. What I
-am asking for is not unreasonable – it's a no-brainer if I was writing a SPA!
+I would love to get (1) an explanation of why this behavior is happening and (2)
+a workaround where all we see is one call to the API server for each click.
+
+This is hampering my ability to deliver a responsive user interface for this use
+case with Next + RSC. This would be a no-brainer to implement as a traditional
+React SPA.
 
 ## Development Build
 
